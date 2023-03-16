@@ -57,6 +57,16 @@ npm install sass --save-dev
 ```jsx
 // views/login/index.vue
 // 生成表单，进行表单验证
+const rules = reactive({
+    username: [
+        { required: true, message: '请输入用户名', trigger: 'blur' },
+        { min: 11, max: 11, message: '用户名为18384518552', trigger: 'blur' },
+    ],
+    password: [
+        { required: true, message: '请输入密码', trigger: 'blur', },
+        { min: 6, max: 6, message: '密码为990223', trigger: 'blur' }
+    ]
+});
 
 // 创建request.js 请求相应器/请求拦截器，导出
 // 设置相应的
