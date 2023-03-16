@@ -11,6 +11,7 @@
   "dependencies": {
     "axios": "^0.24.0",
     "element-plus": "^2.3.0",
+    "mockjs": "^1.1.0",
     "vue": "^3.2.45",
     "vue-router": "^4.0.11",
     "vuex": "^4.0.2"
@@ -23,6 +24,7 @@
     "unplugin-auto-import": "^0.15.1",
     "unplugin-vue-components": "^0.24.1",
     "vite": "^4.1.0",
-    "vite-plugin-style-import": "^1.2.0"
+    "vite-plugin-style-import": "^1.2.0",
+    "vite-plugin-vue-setup-extend": "^0.4.0"
   }
 }

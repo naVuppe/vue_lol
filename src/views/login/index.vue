@@ -1,6 +1,8 @@
 <script setup>
-import { ref, reactive, nextTick } from 'vue';
+import { ref, reactive } from 'vue';
 import { ElMessage } from 'element-plus';
+import { login } from './../../api/login.js';
+
 const form = reactive({
     username: '',
     password: ''
@@ -15,15 +17,31 @@ const onSubmit = async () => {
         console.log(rulesRef.value);
         rulesRef.value.validate(async (valid) => {
             if (valid) {
-                if (form.username == '18384518552' && form.password == '990223') {
-                    ElMessage.success('登录成功');
-                    console.log('登录成功');
-                    // 跳转到首页
-                    await nextTick();
+                // 前端不能直接判断，要给后端发送请求（mock），判断是否正确
+                // if (form.username == '18384518552' && form.password == '990223') {
+                //     localStorage.setItem('vue_lol', JSON.stringify(form));
+                //     ElMessage.success('登录成功');
+                //     const res = await login({ username: form.username, password: form.password });
+
+                //     console.log(res);
+                //     // 跳转到首页
+                //     await nextTick();
+                //     // window.open('https://www.douyu.com/42666', '_self');
+
+                // } else {
+                //     ElMessage.error('登录失败');
+                //     console.log('登录失败');
+                // }
+                const res = await login({ username: form.username, password: form.password });
+                console.log('mock返回数据', res.data);
+                if (res.data.code === 200) {
+                    console.log(res.data.message);
+                    ElMessage.success(res.data.message);
+                    localStorage.setItem('vue_lol', JSON.stringify(form));
                     window.open('https://www.douyu.com/42666', '_self');
                 } else {
-                    ElMessage.error('登录失败');
-                    console.log('登录失败');
+                    ElMessage.error(res.data.message);
+                    localStorage.removeItem('vue_lol');
                 }
             } else {
                 return false;

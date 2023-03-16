@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
+import vuesetupExtend from 'vite-plugin-vue-setup-extend';
 
 // element-plus
 import AutoImport from 'unplugin-auto-import/vite';
@@ -10,6 +11,7 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 export default defineConfig({
   plugins: [
     vue(),
+    vuesetupExtend(),
     // ...
     AutoImport({
       resolvers: [ElementPlusResolver()],
@@ -21,4 +23,18 @@ export default defineConfig({
   server: {
     port: 10500,
   },
+  // proxy代理
+  devServer: {
+    https: false,
+    hotOnly: false,
+    proxy: {
+      '/api': {
+        target: 'https://dog.ceo/api/',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': '',
+        },
+      },
+    },
+  }
 });
