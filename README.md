@@ -101,3 +101,20 @@ import { login } from './../../api/login.js';
 const res = await login({ username: form.username, password: form.password });
 // 做登录判断
 ```
+
+## git的问题
+
+```jsx
+ssh: connect to host github.com port 22: Connection refused
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+// 看不懂的问题，我觉得我没有问题，就是网络的问题。
+// fuck git
+// 解决：
+// 修改ssh的config，加入443端口。22端口难道和我的服务器端口冲突了？不会吧，服务器端口是80？？？
+Host github.com
+  Hostname ssh.github.com
+  Port 443
+```
