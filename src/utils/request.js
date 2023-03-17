@@ -6,10 +6,11 @@ const request = axios.create({
     timeout: 3000,
 });
 
-// Add a request interceptor
+// 其他的请求拦截器
 request.interceptors.request.use(
     (config) => {
         // Do something before request is sent
+        console.log(config);
         return config;
     }
 );

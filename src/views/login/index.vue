@@ -1,7 +1,14 @@
 <script setup>
 import { ref, reactive } from 'vue';
-import { ElMessage } from 'element-plus';
 import { login } from './../../api/login.js';
+import router from './../../router';
+
+import Vuex3 from './../../store/index.jsx';
+const Vue1 = Vuex3();
+
+// 引入jsx文件
+// import UseClientWidth from './clientWidth.jsx';
+// const useClientWidth = UseClientWidth();
 
 const form = reactive({
     username: '',
@@ -13,40 +20,44 @@ const open = () => {
 };
 // 定义表单ref
 const rulesRef = ref(null);
+
 const onSubmit = async () => {
-        console.log(rulesRef.value);
-        rulesRef.value.validate(async (valid) => {
-            if (valid) {
-                // 前端不能直接判断，要给后端发送请求（mock），判断是否正确
-                // if (form.username == '18384518552' && form.password == '990223') {
-                //     localStorage.setItem('vue_lol', JSON.stringify(form));
-                //     ElMessage.success('登录成功');
-                //     const res = await login({ username: form.username, password: form.password });
+    // console.log(rulesRef.value);
+    rulesRef.value.validate(async (valid) => {
+        if (valid) {
+            // 前端不能直接判断，要给后端发送请求（mock），判断是否正确
+            // if (form.username == '18384518552' && form.password == '990223') {
+            //     localStorage.setItem('vue_lol', JSON.stringify(form));
+            //     ElMessage.success('登录成功');
+            //     const res = await login({ username: form.username, password: form.password });
 
-                //     console.log(res);
-                //     // 跳转到首页
-                //     await nextTick();
-                //     // window.open('https://www.douyu.com/42666', '_self');
+            //     console.log(res);
+            //     // 跳转到首页
+            //     await nextTick();
+            //     // window.open('https://www.douyu.com/42666', '_self');
 
-                // } else {
-                //     ElMessage.error('登录失败');
-                //     console.log('登录失败');
-                // }
-                const res = await login({ username: form.username, password: form.password });
-                console.log('mock返回数据', res.data);
-                if (res.data.code === 200) {
-                    console.log(res.data.message);
-                    ElMessage.success(res.data.message);
-                    localStorage.setItem('vue_lol', JSON.stringify(form));
-                    window.open('https://www.douyu.com/42666', '_self');
-                } else {
-                    ElMessage.error(res.data.message);
-                    localStorage.removeItem('vue_lol');
-                }
+            // } else {
+            //     ElMessage.error('登录失败');
+            //     console.log('登录失败');
+            // }
+            const res = await login({ username: form.username, password: form.password });
+            console.log('mock返回数据', res.data);
+            if (res.data.code === 200) {
+                console.log(res.data.message);
+                // localStorage.setItem('vue_lol', JSON.stringify(form));
+                // 跳转到首页
+                // router.push('/home');
+                router.replace('/home');
+
+                // 用用全局状态管理
+                Vue1.mutations.increment(Vue1.state, res.data.token);
             } else {
-                return false;
+                console.log(res.data.message);
             }
-        });
+        } else {
+            return false;
+        }
+    });
 };
 const rules = reactive({
     username: [
@@ -59,14 +70,24 @@ const rules = reactive({
     ]
 });
 
+// 获取视口的宽高
+// const wh = reactive({
+//     width: 0,
+//     height: 0
+// });
+// setInterval(() => {
+//     wh.width = useClientWidth.getClientWidth().clientWidth;
+//     wh.height = useClientWidth.getClientWidth().clientHeight;
+//     console.log(wh);
+// },1000);
 </script>
 
 <template>
     <div class="content">
         <!-- <video id="v1" autoplay loop muted>
-            <source src="./../../assets/水调歌头.jpg"
-                type="video/mp4" />
-        </video> -->
+                    <source src="suen.mp4"
+                        type="video/mp4" />
+                </video> -->
         <el-card class="el-card" header="">
             <div>
                 <h3>登录吧</h3>
@@ -79,7 +100,8 @@ const rules = reactive({
                     <el-input v-model="form.password" placeholder="请输入密码" show-password />
                 </el-form-item>
                 <el-button @click="open">注入</el-button>
-                <el-button size="medium" type="primary" @click="onSubmit" style="margin-left: 38%;width: 50%;">登录</el-button>
+                <el-button size="medium" type="primary" @click="onSubmit"
+                    style="margin-left: 38%;width: 50%;">登录</el-button>
             </el-form>
         </el-card>
     </div>
@@ -97,12 +119,15 @@ video {
 h3 {
     margin-bottom: 35px;
 }
-.content{
+
+.content {
     width: 100%;
     height: 100%;
     background: url(./../../assets/水调歌头.jpg) no-repeat;
+    // background-size: v-bind(wh + 'px') v-bind(wh + 'px');
     background-size: 100% 100%;
 }
+
 .el-card {
     position: fixed;
     left: 50%;
