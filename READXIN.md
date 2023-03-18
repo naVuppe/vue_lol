@@ -127,7 +127,15 @@ import router from './../router';
 router.replase('/home');
 
 // 路由跳转：push与replace有哪些区别？
-
+// replace不会向history插入记录，而push会向history插入
+// push 跳转到对应的路由，这个方法会向history栈添加一个记录，点击后退会返回到上一个页面。
+// replace同样是跳转到指定的路由，但是这个方法不会向history里面添加新的记录，而是替换（覆盖）掉当前路由，点击返回，会跳转到上上一个页面。
+/* 
+query 传参配置的是path，而params传参配置的是name，在params中配置path无效
+query在路由配置不需要设置参数，而params必须设置
+query传递的参数会显示在地址栏中
+params传参刷新会无效，但是query会保存传递过来的值，刷新不变
+*/
 ```
 
 ## git的问题
@@ -145,4 +153,13 @@ and the repository exists.
 Host github.com
   Hostname ssh.github.com
   Port 443
+```
+
+## 路由守卫
+
+```jsx
+// 1. 导入路由
+
+// main.js引入路由守卫
+import "./router/permission";
 ```

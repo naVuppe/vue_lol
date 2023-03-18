@@ -16,6 +16,12 @@ const router = createRouter({
       path: '/home',
       name: 'Home',
       component: () => import('./../views/home/index.vue'),
+    },
+    {
+      path: '/404',
+      name: '404',
+      redirect: '/404',
+      component: () => import('./../views/404.vue'),
     }
   ],
 });

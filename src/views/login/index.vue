@@ -80,10 +80,15 @@ const rules = reactive({
 //     wh.height = useClientWidth.getClientWidth().clientHeight;
 //     console.log(wh);
 // },1000);
+// q: background-size: cover;是什么意思?
+// a: 背景图像将被拉伸以填充元素的整个内容区域。如果图像的宽高比与元素的宽高比不同，那么图像将被拉伸并且看起来可能会失真。
 </script>
 
 <template>
     <div class="content">
+        <!-- <div class="bgi">
+            <img src="./../../assets/水调歌头.jpg" alt="">
+        </div> -->
         <!-- <video id="v1" autoplay loop muted>
                     <source src="suen.mp4"
                         type="video/mp4" />
@@ -125,7 +130,23 @@ h3 {
     height: 100%;
     background: url(./../../assets/水调歌头.jpg) no-repeat;
     // background-size: v-bind(wh + 'px') v-bind(wh + 'px');
-    background-size: 100% 100%;
+    // q: background-size: cover;是什么意思?
+    // a: 背景图像将被拉伸以填充元素的整个内容区域。如果图像的宽高比与元素的宽高比不同，那么图像将被拉伸并且看起来可能会失真。
+    background-size: cover;
+    // position: relative;
+    // .bgi{
+    //     position: fixed;
+    //     top: 0;
+    //     left: 0;
+    //     width: 100%;
+    //     height: 100%;
+    //     img{
+    //         width: 100%;
+    //         height: 100%;
+    //         min-width: 1920px;
+    //         min-height: 1080px;
+    //     }
+    // }
 }
 
 .el-card {

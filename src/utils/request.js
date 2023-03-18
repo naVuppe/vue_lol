@@ -9,9 +9,12 @@ const request = axios.create({
 // 其他的请求拦截器
 request.interceptors.request.use(
     (config) => {
-        // Do something before request is sent
-        console.log(config);
+        // 在请求拦截器里添加token，暂时没有token
+        // config.headers.Authorization = localStorage.getItem("token");
         return config;
+    },
+    (error) => {
+        return Promise.reject(error);
     }
 );
 

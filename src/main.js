@@ -3,6 +3,8 @@ import './style.css';
 import App from './App.vue';
 import './styles/index.scss';
 import 'element-plus/dist/index.css';
+// 引入路由守卫
+import "./router/permission";
 import router from './router';
 // 引入mock
 import "./mock";

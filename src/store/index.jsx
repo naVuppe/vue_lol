@@ -8,7 +8,7 @@ export default function Vuex3() {
   const mutations = {
     increment(state, payload) {
       state.token = payload;
-      console.log("state => count：", state.token);
+      // console.log("state => count：", state.token);
     },
   };
 
